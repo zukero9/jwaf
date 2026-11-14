@@ -1,9 +1,47 @@
 import json
 import os
+import sys
 import threading
 from typing import Dict, List, Set
 
-CONFIG_FILE = os.path.join(os.path.dirname(__file__), "shield_config.json")
+def _get_persistent_config_path(filename: str = "shield_config.json") -> str:
+    candidates = []
+    if getattr(sys, "frozen", False):
+        exe_dir = os.path.dirname(os.path.abspath(sys.executable))
+        candidates.append(os.path.join(exe_dir, filename))
+    else:
+        proj_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        candidates.append(os.path.join(proj_dir, filename))
+        candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), filename))
+
+    appdata_dir = os.path.join(os.environ.get("LOCALAPPDATA", os.path.expanduser("~")), "JinkeroShield")
+    appdata_path = os.path.join(appdata_dir, filename)
+
+    for c in candidates:
+        if os.path.exists(c):
+            return c
+    if os.path.exists(appdata_path):
+        return appdata_path
+
+    for c in candidates:
+        try:
+            d = os.path.dirname(c)
+            os.makedirs(d, exist_ok=True)
+            test_file = os.path.join(d, ".perm_test")
+            with open(test_file, "w") as f:
+                f.write("1")
+            os.remove(test_file)
+            return c
+        except Exception:
+            pass
+
+    try:
+        os.makedirs(appdata_dir, exist_ok=True)
+    except Exception:
+        pass
+    return appdata_path
+
+CONFIG_FILE = _get_persistent_config_path("shield_config.json")
 
 class ShieldConfig:
     def __init__(self):

@@ -1,11 +1,58 @@
 import json
 import os
+import sys
 import ipaddress
 import threading
 from typing import Dict, List, Set
 from core.self_protection import SELF_PROTECTION
 
-CONFIG_FILE = os.path.join(os.path.dirname(__file__), "shield_pro_config.json")
+def _get_persistent_config_path(filename: str = "shield_pro_config.json") -> str:
+    r"""
+    [지능형 영구 저장소 경로 결정기]
+    1. 실행 파일(또는 프로젝트) 디렉터리에 쓰기 권한이 있으면 동일 디렉터리에 저장
+    2. C:\Program Files 등 관리자 전용 폴더에 설치되어 일반 쓰기 권한이 제한되는 경우,
+       사용자별 AppData 로컬 디렉터리(%LOCALAPPDATA%\JinkeroShieldPro)로 안전하게 격리 저장하여
+       재실행 시에도 차단 목록, 추가/제외 국가 및 모든 환경설정이 100% 영구 보존되도록 보장합니다.
+    """
+    candidates = []
+    if getattr(sys, "frozen", False):
+        exe_dir = os.path.dirname(os.path.abspath(sys.executable))
+        candidates.append(os.path.join(exe_dir, filename))
+    else:
+        proj_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        candidates.append(os.path.join(proj_dir, filename))
+        candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), filename))
+
+    appdata_dir = os.path.join(os.environ.get("LOCALAPPDATA", os.path.expanduser("~")), "JinkeroShieldPro")
+    appdata_path = os.path.join(appdata_dir, filename)
+
+    # 1. 기존에 이미 저장된 유효한 설정 파일이 있는지 우선 탐색
+    for c in candidates:
+        if os.path.exists(c):
+            return c
+    if os.path.exists(appdata_path):
+        return appdata_path
+
+    # 2. 신규 생성 시 쓰기 가능한 경로 테스트
+    for c in candidates:
+        try:
+            d = os.path.dirname(c)
+            os.makedirs(d, exist_ok=True)
+            test_file = os.path.join(d, ".perm_test")
+            with open(test_file, "w") as f:
+                f.write("1")
+            os.remove(test_file)
+            return c
+        except Exception:
+            pass
+
+    try:
+        os.makedirs(appdata_dir, exist_ok=True)
+    except Exception:
+        pass
+    return appdata_path
+
+CONFIG_FILE = _get_persistent_config_path("shield_pro_config.json")
 
 
 def is_valid_ip_or_cidr(ip_str: str) -> bool:
