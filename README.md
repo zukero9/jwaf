@@ -15,9 +15,7 @@ Windows 11 및 Android 전 세대 기기에 최적화된 **온디바이스 AI �
 
 | 구분 | 플랫폼 / 에디션 | 파일명 | 다운로드 링크 | 설명 |
 | :--- | :--- | :--- | :---: | :--- |
-| **단독 실행 (포터블)** | Windows 10/11 (64-bit) | `JinkeroShield.exe` | [⬇️ 다운로드 (EXE)](https://raw.githubusercontent.com/zukero9/jwaf/main/release/JinkeroShield.exe) | 설치 없이 즉시 실행 가능한 **One-file 단독 실행 파일** (Python/PyQt6 DLL 내장) |
-| **포터블 압축본** | Windows 10/11 (64-bit) | `JinkeroShield_Single_v1.0.2.zip` | [⬇️ 다운로드 (ZIP)](https://raw.githubusercontent.com/zukero9/jwaf/main/release/JinkeroShield_Single_v1.0.2.zip) | 방화벽 단독 실행 파일 배포용 ZIP 압축본 |
-| **설치형 마법사 (Pro)** | Windows 10/11 (64-bit) | `setup.exe` | [⬇️ 다운로드 (EXE)](https://raw.githubusercontent.com/zukero9/jwaf/main/JinkeroShield_Pro_Edition/setup.exe) | 자가 발전 AI, EDR 킬스위치, 바로가기/자동실행을 지원하는 **Windows 정식 설치 마법사** |
+| **포터블 단독 실행** | Windows 10/11 (64-bit) | `JinkeroShield.exe` | [⬇️ 다운로드 (EXE)](https://raw.githubusercontent.com/zukero9/jwaf/main/release/JinkeroShield.exe) | 설치 없이 즉시 실행 가능한 **One-file 단독 실행 파일** (Python/PyQt6 DLL 내장) |
 | **프로 에디션 실행 파일** | Windows 10/11 (64-bit) | `JinkeroShieldPro.exe` | [⬇️ 다운로드 (EXE)](https://raw.githubusercontent.com/zukero9/jwaf/main/JinkeroShield_Pro_Edition/JinkeroShieldPro.exe) | JWAF Pro 엔터프라이즈 AI 방화벽 & EDR 실행 바이너리 |
 | **안드로이드 모바일** | Android 5.0 Lollipop ~ 16+ | `JinkeroShieldPro_Android_V2.0.apk` | [⬇️ 다운로드 (APK)](https://raw.githubusercontent.com/zukero9/jwaf/main/JinkeroShield_Android_Edition/JinkeroShieldPro_Android_V2.0.apk) | **v1+v2+v3 다중 공인 서명** 적용, 무루팅 로컬 VPN 패킷 방화벽 모바일 앱 |
 
