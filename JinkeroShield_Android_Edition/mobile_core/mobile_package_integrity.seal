@@ -1,0 +1,12 @@
+{
+  "edition": "JWAF Android Mobile Pro V2.0",
+  "timestamp": "2026-11-14 03:11:09",
+  "files": {
+    "app/src/main/assets/www/index.html": "a6e0834c31fdfda65297d9daa3d9b8ae06e2015899c72bcb084fe16d43c42d61",
+    "app/src/main/assets/www/mobile_style.css": "7439c544067b4ce0232ac619440eb7bee3556220cb76dea8c349b4ab8bdf3e29",
+    "app/src/main/assets/www/mobile_app.js": "8ed18c0c551e90d8768e9a86f6d307df416af247a19e8961bd631ab2771a1f08",
+    "mobile_core/mobile_ai_engine.py": "45c044656f0c2535040c4f37eae29db2d7e23f6743abc102b71271b9bfc89070",
+    "JinkeroShieldPro_Android_V2.0.apk": "10dd57cd6435f719fc65901fca43215518962d9c75adc083fd0f3740e04c90f3"
+  },
+  "_hmac_seal": "8d6e8ccc0d17cdc2fd725d7215acb84626b5666380cdc22d579aa67cfa5f4081"
+}

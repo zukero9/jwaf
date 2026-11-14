@@ -1,0 +1,43 @@
+{
+  "vpn_firewall_active": true,
+  "ai_enabled": true,
+  "ai_sensitivity": "BALANCED",
+  "power_mode": "ADAPTIVE_BATTERY",
+  "smishing_guard_enabled": true,
+  "wifi_arp_guard_enabled": true,
+  "adb_port_lock_enabled": true,
+  "outbound_c2_block_enabled": true,
+  "blocked_countries": [
+    "CN",
+    "IR",
+    "KP",
+    "NG",
+    "RU",
+    "VN"
+  ],
+  "blocked_ports": [
+    21,
+    23,
+    135,
+    445,
+    3389,
+    5555
+  ],
+  "black_ips": [
+    "103.27.186.42",
+    "114.80.22.10",
+    "185.220.101.34",
+    "45.155.205.233",
+    "91.219.236.174"
+  ],
+  "white_ips": [
+    "1.1.1.1",
+    "127.0.0.1",
+    "8.8.8.8"
+  ],
+  "blocked_app_uids": [
+    "com.ads.stealthminer.sdk",
+    "com.unknown.spyclip.service"
+  ],
+  "_hmac_seal": "d71c41cd8f0888778d937ab2b2082a10ff6c039824039203f5300b1d0884c629"
+}

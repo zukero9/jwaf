@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#090D16" />
+  <title>JWAF — Jinkero Shield Pro AI (Android Mobile Edition)</title>
+  <link rel="stylesheet" href="mobile_style.css" />
+</head>
+<body>
+  <div class="mobile-app-shell">
+    <!-- 상단 플로팅 토스트 알림 -->
+    <div id="mobileToast" class="mobile-toast">✅ 모바일 방화벽 정책이 즉시 동기화되었습니다.</div>
+
+    <!-- 상단 Google Material 3 앱 바 -->
+    <header class="top-app-bar">
+      <div class="app-bar-row">
+        <div class="brand-group">
+          <div class="brand-logo">
+            <img src="jwaf_icon.svg" alt="JWAF" onerror="this.src='jwaf_icon.png';" />
+          </div>
+          <div class="brand-titles">
+            <div class="brand-name">
+              <span>JWAF 모바일 AI 방화벽</span>
+            </div>
+            <div class="brand-sub">Jinkero Shield Pro • Android V2.0 Edition</div>
+          </div>
+        </div>
+        <button class="m3-btn tonal" style="flex:0 0 auto; min-height:38px; padding:6px 12px; font-size:12px;" onclick="verifyMobileApkIntegrity()">
+          🔒 무결성 검증
+        </button>
+      </div>
+
+      <div class="status-pill-bar">
+        <span id="badgeVpnState" class="m3-badge green">🛡️ 로컬 VPN 방화벽 가동 중</span>
+        <span id="badgeAiGen" class="m3-badge blue">🧬 모바일 AI Gen 1.0 (16-Tree)</span>
+        <span id="badgeSealState" class="m3-badge amber">🔒 APK v2 &amp; HMAC 봉인됨</span>
+      </div>
+    </header>
+
+    <!-- 중앙 메인 세로 스크롤 컨테이너 -->
+    <main id="mainScrollViewport" class="main-scroll-viewport">
+
+      <!-- ==================== TAB 0: 홈 · 방패 ==================== -->
+      <section id="tab-0" class="tab-section active">
+        <!-- 히어로 마스터 방패 카드 -->
+        <div id="heroShieldCard" class="m3-card hero-shield-card">
+          <div class="hero-top-flex">
+            <div class="hero-status-info">
+              <div id="heroTitleText" class="hero-status-title">모바일 풀 방어 활성화됨</div>
+              <div id="heroDescText" class="hero-status-desc">
+                무루팅 Android VpnService 양방향 패킷 필터와 배터리 절전형 16-Tree AI가 실시간 보호 중입니다.
+              </div>
+            </div>
+            <label class="m3-switch" aria-label="마스터 방화벽 스위치">
+              <input type="checkbox" id="masterVpnToggle" checked onchange="onToggleMasterVpn(this.checked)" />
+              <span class="m3-slider"></span>
+            </label>
+          </div>
+          <div class="btn-row" style="margin-top:14px;">
+            <button class="m3-btn primary" onclick="runMobileAttackSimulation()">
+              🧪 모의 모바일 해킹 방어 검증
+            </button>
+            <button class="m3-btn emerald" onclick="triggerMobileSelfEvolution()">
+              🧬 AI 즉시 자가 발전
+            </button>
+          </div>
+        </div>
+
+        <!-- 2x2 KPI 터치 그리드 -->
+        <div class="kpi-grid-2x2">
+          <div class="kpi-tile blue" onclick="switchMobileTab(1, 'ALL')">
+            <div class="kpi-label">총 검사된 모바일 패킷</div>
+            <div id="kpiTotalInspected" class="kpi-value">1,428</div>
+            <div class="kpi-foot">실시간 VPN 스트림 보기 →</div>
+          </div>
+          <div class="kpi-tile red" onclick="switchMobileTab(1, 'BLOCKED')">
+            <div class="kpi-label">차단된 지능형 위협</div>
+            <div id="kpiTotalBlocked" class="kpi-value">19</div>
+            <div class="kpi-foot">차단 내역만 필터 →</div>
+          </div>
+          <div class="kpi-tile amber" onclick="switchMobileTab(2)">
+            <div class="kpi-label">스미싱·큐싱·APK 차단</div>
+            <div id="kpiSmishingBlocked" class="kpi-value">7건</div>
+            <div class="kpi-foot">스미싱 AI 진단기 →</div>
+          </div>
+          <div class="kpi-tile green" onclick="switchMobileTab(3)">
+            <div class="kpi-label">보호 중인 앱 소켓</div>
+            <div id="kpiProtectedApps" class="kpi-value">6개 앱</div>
+            <div class="kpi-foot">앱별 네트워크 감사 →</div>
+          </div>
+        </div>
+
+        <!-- 실시간 모바일 네트워크 대역폭 차트 -->
+        <div class="m3-card">
+          <div class="card-header-row">
+            <div>
+              <div class="card-title">📊 실시간 모바일 트래픽 전광판</div>
+              <div class="card-subtitle">5G / Wi-Fi 양방향 송수신 속도 및 DDoS 과부하 감시</div>
+            </div>
+            <span id="wifiSafetyBadge" class="m3-badge green">📡 Wi-Fi 안전</span>
+          </div>
+
+          <div class="traffic-hud-grid">
+            <div class="traffic-pill-box rx">
+              <div class="traffic-pill-label">⬇ 모바일 수신 (RX)</div>
+              <div id="rxSpeedValue" class="traffic-pill-val">142.8 KB/s</div>
+            </div>
+            <div class="traffic-pill-box tx">
+              <div class="traffic-pill-label">⬆ 모바일 송신 (TX)</div>
+              <div id="txSpeedValue" class="traffic-pill-val">38.4 KB/s</div>
+            </div>
+          </div>
+
+          <div class="canvas-wrap">
+            <canvas id="mobileTrafficCanvas"></canvas>
+          </div>
+        </div>
+
+        <!-- 모바일 특화 4대 방어 엔진 빠른 설정 -->
+        <div class="m3-card">
+          <div class="card-header-row">
+            <div>
+              <div class="card-title">⚡ 모바일 특화 4대 핵심 방어 엔진</div>
+              <div class="card-subtitle">스마트폰 환경에 최적화된 경량 보안 모듈</div>
+            </div>
+          </div>
+
+          <div class="setting-item-list">
+            <div class="setting-row">
+              <div class="setting-text-box">
+                <div class="setting-name">💬 스미싱 문자 · QR 피싱(큐싱) AI 차단</div>
+                <div class="setting-desc">택배·공공기관·금융 사칭 URL 및 악성 .apk 설치 유도 차단</div>
+              </div>
+              <label class="m3-switch">
+                <input type="checkbox" id="chkSmishingGuard" checked onchange="onToggleMobileFeature('smishing', this.checked)" />
+                <span class="m3-slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-text-box">
+                <div class="setting-name">📡 공용 Wi-Fi 공유기 ARP/DNS 파밍 방어</div>
+                <div class="setting-desc">카페·공항 Wi-Fi의 Evil-Twin 및 게이트웨이 변조 실시간 감지</div>
+              </div>
+              <label class="m3-switch">
+                <input type="checkbox" id="chkWifiGuard" checked onchange="onToggleMobileFeature('wifi', this.checked)" />
+                <span class="m3-slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-text-box">
+                <div class="setting-name">🔌 무선 ADB (5555 포트) 스파이웨어 잠금</div>
+                <div class="setting-desc">무선 디버깅 포트를 통한 원격 쉘 탈취 및 몰래앱 설치 원천 차단</div>
+              </div>
+              <label class="m3-switch">
+                <input type="checkbox" id="chkAdbLock" checked onchange="onToggleMobileFeature('adb', this.checked)" />
+                <span class="m3-slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-text-box">
+                <div class="setting-name">🔋 배터리 절전형 적응형 AI 연산 (LRU 캐시)</div>
+                <div class="setting-desc">모바일 빅리틀 코어 최적화로 CPU 발열 및 배터리 소모 68% 절감</div>
+              </div>
+              <label class="m3-switch">
+                <input type="checkbox" id="chkBatterySaver" checked onchange="onToggleMobileFeature('battery', this.checked)" />
+                <span class="m3-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 1: 위협 로그 (세로형 카드 리스트) ==================== -->
+      <section id="tab-1" class="tab-section">
+        <div class="m3-card">
+          <div class="card-header-row">
+            <div>
+              <div class="card-title">📋 실시간 모바일 위협 &amp; 패킷 로그</div>
+              <div class="card-subtitle">카드를 터치하면 하단 시트에서 전체 XAI 분석 및 차단 조치가 가능합니다.</div>
+            </div>
+          </div>
+
+          <div class="chip-scroll-bar" style="margin-bottom:10px;">
+            <button id="chipFilterAll" class="filter-chip active" onclick="filterMobileLogs('ALL')">전체 스트림</button>
+            <button id="chipFilterBlocked" class="filter-chip" onclick="filterMobileLogs('BLOCKED')">🚫 차단된 위협만</button>
+            <button id="chipFilterSmishing" class="filter-chip" onclick="filterMobileLogs('SMISHING')">💬 스미싱·큐싱</button>
+            <button id="chipFilterApp" class="filter-chip" onclick="filterMobileLogs('APP_C2')">📱 앱 C2 차단</button>
+          </div>
+
+          <div class="btn-row" style="margin-bottom:12px;">
+            <button class="m3-btn tonal" style="min-height:42px; font-size:12.5px;" onclick="exportMobileLogsJson()">
+              📥 보안 리포트 내보내기
+            </button>
+            <button class="m3-btn tonal" style="min-height:42px; font-size:12.5px;" onclick="clearMobileLogs()">
+              🗑️ 로그 비우기
+            </button>
+          </div>
+
+          <div id="mobileLogCardList" class="mobile-card-list"></div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 2: AI 진화 & 스미싱 진단기 ==================== -->
+      <section id="tab-2" class="tab-section">
+        <!-- 스미싱 / 의심 URL / QR 피싱 AI 즉시 진단 카드 -->
+        <div class="m3-card">
+          <div class="card-header-row">
+            <div>
+              <div class="card-title">💬 스미싱 문자 · QR URL 즉시 AI 정밀 진단</div>
+              <div class="card-subtitle">의심스러운 문자 메시지나 링크를 붙여넣어 AI 위협 점수를 즉시 확인하세요.</div>
+            </div>
+          </div>
+
+          <div class="chip-scroll-bar" style="margin-bottom:10px;">
+            <button class="filter-chip" onclick="fillSampleSmishing('delivery')">📦 택배 주소지 스미싱 예시</button>
+            <button class="filter-chip" onclick="fillSampleSmishing('gov')">🏛️ 민생지원금 .apk 예시</button>
+            <button class="filter-chip" onclick="fillSampleSmishing('qr')">📷 QR 인증 탈취 예시</button>
+            <button class="filter-chip" onclick="fillSampleSmishing('prompt')">🤖 LLM 프롬프트 해킹 예시</button>
+          </div>
+
+          <div class="input-group-row" style="margin-bottom:10px;">
+            <input type="text" id="smishingInput" class="m3-input" placeholder="검사할 문자 내용, URL 또는 페이로드 입력..." value="[CJ대한통운] 운송장 주소지 불명으로 반송예정. 확인: http://bit.ly/cj-kr-fix/update.apk" />
+          </div>
+
+          <div class="btn-row">
+            <button class="m3-btn primary" onclick="inspectSmishingTextNow()">
+              🔍 모바일 앙상블 AI 정밀 분석 실행
+            </button>
+          </div>
+
+          <div id="smishingResultBox" class="sheet-kv-box" style="margin-top:12px; display:none;"></div>
+        </div>
+
+        <!-- 모바일 AI 엔진 민감도 & 배터리 모드 제어 -->
+        <div class="m3-card">
+          <div class="card-header-row">
+            <div>
+              <div class="card-title">🧬 자가 발전 모바일 AI 엔진 제어</div>
+              <div id="aiEngineSummarySub" class="card-subtitle">세대: Gen 1.0 | 16-Tree 경량 숲 | LRU 캐시 적중 14회</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:10px;">
+            <div style="font-size:12.5px; font-weight:700; color:var(--text-secondary); margin-bottom:6px;">AI 자율 차단 민감도 설정</div>
+            <select id="mobileAiSensitivity" class="m3-select" onchange="onChangeMobileAiSensitivity(this.value)">
+              <option value="BALANCED" selected>BALANCED (균형 권장 — AI 위협 90점 이상 자동 격리)</option>
+              <option value="AGGRESSIVE">AGGRESSIVE (공격적 최고보안 — AI 위협 80점 이상 격리)</option>
+              <option value="CONSERVATIVE">CONSERVATIVE (보수적 — 초고위험 95점 이상만 격리)</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-size:12.5px; font-weight:700; color:var(--text-secondary); margin-bottom:6px;">모바일 프로세서 &amp; 배터리 연산 모드</div>
+            <select id="mobilePowerMode" class="m3-select" onchange="onChangeMobilePowerMode(this.value)">
+              <option value="ADAPTIVE_BATTERY" selected>🔋 적응형 배터리 최적 모드 (16-Tree + LRU 캐시 가속)</option>
+              <option value="HIGH_PERFORMANCE">⚡ 초정밀 풀스캔 모드 (모든 패킷 딥패킷 N-gram 전수 검사)</option>
+              <option value="ULTRA_SAVER">🌙 초절전 에코 모드 (핵심 8-Tree 고속 경량 연산)</option>
+            </select>
+          </div>
+
+          <div class="btn-row">
+            <button class="m3-btn emerald" onclick="triggerMobileSelfEvolution()">
+              🧬 온라인 트리 재학습 &amp; 규칙 합성
+            </button>
+            <button class="m3-btn amber" onclick="syncMobileCloudThreatFeed()">
+              🔄 글로벌 모바일 C2 피드 동기화
+            </button>
+          </div>
+        </div>
+
+        <!-- 탑재된 모바일 AI 시그니처 룰셋 목록 -->
+        <div class="m3-card">
+          <div class="card-header-row">
+            <div>
+              <div class="card-title">🛡️ 활성화된 모바일 AI 방어 시그니처</div>
+              <div class="card-subtitle">신종 공격 차단 시 AUTO-MOB-* 규칙이 자동 합성·추가됩니다.</div>
+            </div>
+          </div>
+          <div id="mobileSignatureList" class="mobile-card-list"></div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 3: 앱 · 소켓 (모바일 EDR) ==================== -->
+      <section id="tab-3" class="tab-section">
+        <div class="m3-card">
+          <div class="card-header-row">
+            <div>
+              <div class="card-title">📱 설치 앱 UID별 실시간 소켓 감사 (Mobile EDR)</div>
+              <div class="card-subtitle">백그라운드에서 몰래 외부 C2 서버와 통신하는 스파이웨어 앱을 즉시 차단합니다.</div>
+            </div>
+            <button class="m3-btn tonal" style="flex:0 0 auto; min-height:38px; padding:6px 12px; font-size:12px;" onclick="renderMobileEdrAppList(true)">
+              🔄 새로고침
+            </button>
+          </div>
+
+          <div id="mobileEdrAppList" class="mobile-card-list"></div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 4: 차단 정책 (국가 / IP / 포트 / 무결성) ==================== -->
+      <section id="tab-4" class="tab-section">
+        <!-- 국가별 접근 차단 2열 터치 그리드 -->
+        <div class="m3-card">
+          <div class="card-header-row">
+            <div>
+              <div class="card-title">🌏 국가별 접근 차단 (GeoIP 모바일 방화벽)</div>
+              <div class="card-subtitle">터치 한 번으로 고위험 국가 대역의 모바일 인·아웃바운드 접속을 차단합니다.</div>
+            </div>
+          </div>
+
+          <div id="mobileCountryGrid" class="country-chip-grid" style="margin-bottom:12px;"></div>
+
+          <div class="input-group-row">
+            <input type="text" id="customCountryInput" class="m3-input" maxlength="4" placeholder="ISO 2자리 국가코드 입력 (예: HK, SG)" />
+            <button class="m3-btn danger" style="flex:0 0 auto;" onclick="addCustomMobileCountry()">국가 추가</button>
+          </div>
+        </div>
+
+        <!-- 모바일 BlackIP / WhiteIP 관리 -->
+        <div class="m3-card">
+          <div class="card-header-row">
+            <div>
+              <div class="card-title">🚫 모바일 BlackIP 차단 &amp; WhiteIP 허용 관리</div>
+              <div class="card-subtitle">Android 로컬 VPN 라우팅 테이블에 즉시 반영됩니다.</div>
+            </div>
+          </div>
+
+          <div class="input-group-row" style="margin-bottom:10px;">
+            <input type="text" id="mobileIpInput" class="m3-input" placeholder="IP 주소 입력 (예: 185.220.101.99)" />
+          </div>
+          <div class="btn-row" style="margin-bottom:14px;">
+            <button class="m3-btn danger" onclick="addMobileIpRule('BLACK')">🚫 BlackIP 차단 등록</button>
+            <button class="m3-btn emerald" onclick="addMobileIpRule('WHITE')">✅ WhiteIP 신뢰 등록</button>
+          </div>
+
+          <div style="font-size:12.5px; font-weight:800; color:var(--google-red); margin-bottom:6px;">현재 영구 차단된 BlackIP 목록 (터치하여 해제)</div>
+          <div id="blackIpChipContainer" class="chip-scroll-bar" style="flex-wrap:wrap; margin-bottom:12px;"></div>
+
+          <div style="font-size:12.5px; font-weight:800; color:var(--google-emerald); margin-bottom:6px;">신뢰하는 WhiteIP 목록 (터치하여 해제)</div>
+          <div id="whiteIpChipContainer" class="chip-scroll-bar" style="flex-wrap:wrap;"></div>
+        </div>
+
+        <!-- 모바일 위험 포트 원터치 잠금 -->
+        <div class="m3-card">
+          <div class="card-header-row">
+            <div>
+              <div class="card-title">🔒 모바일 취약 포트 &amp; APK 위변조 자가 보호</div>
+              <div class="card-subtitle">무선 디버깅(5555), 원격 제어 및 패키지 해킹 방어</div>
+            </div>
+          </div>
+
+          <div id="mobilePortList" class="country-chip-grid" style="margin-bottom:14px;"></div>
+
+          <div class="sheet-kv-box" style="margin-bottom:12px;">
+            <b style="color:var(--google-blue);">🛡️ APK Signature Scheme v2 &amp; HMAC-SHA256 자가 무결성 봉인</b><br/>
+            <span id="apkIntegrityDetailText">• 상태: 정상 검증됨 (APK 서명 및 설정 전자서명 일치)<br/>• 방어 엔진: Android VpnService + 16-Tree Quantized AI</span>
+          </div>
+
+          <button class="m3-btn emerald" style="width:100%;" onclick="verifyMobileApkIntegrity()">
+            🔒 지금 즉시 APK 패키지 &amp; 설정 무결성 검증
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 하단 고정 Google Material 3 5-탭 내비게이션 바 -->
+    <nav class="bottom-nav-bar" aria-label="모바일 하단 메뉴">
+      <button id="navBtn-0" class="nav-tab-item active" onclick="switchMobileTab(0)">
+        <div class="nav-pill-icon">🛡️</div>
+        <span class="nav-tab-label">홈·방패</span>
+      </button>
+      <button id="navBtn-1" class="nav-tab-item" onclick="switchMobileTab(1)">
+        <div class="nav-pill-icon">📋</div>
+        <span class="nav-tab-label">위협로그</span>
+      </button>
+      <button id="navBtn-2" class="nav-tab-item" onclick="switchMobileTab(2)">
+        <div class="nav-pill-icon">🤖</div>
+        <span class="nav-tab-label">AI·스미싱</span>
+      </button>
+      <button id="navBtn-3" class="nav-tab-item" onclick="switchMobileTab(3)">
+        <div class="nav-pill-icon">📱</div>
+        <span class="nav-tab-label">앱·소켓</span>
+      </button>
+      <button id="navBtn-4" class="nav-tab-item" onclick="switchMobileTab(4)">
+        <div class="nav-pill-icon">⚙️</div>
+        <span class="nav-tab-label">차단정책</span>
+      </button>
+    </nav>
+
+    <!-- Google Material 3 상세 분석 바텀 시트 (모달) -->
+    <div id="bottomSheetOverlay" class="bottom-sheet-backdrop" onclick="if(event.target===this) closeBottomSheet()">
+      <div class="bottom-sheet-panel">
+        <div class="sheet-drag-handle"></div>
+        <div id="sheetHeaderTitle" style="font-size:16px; font-weight:800; color:var(--google-blue);">
+          🔍 모바일 위협 상세 XAI 분석 리포트
+        </div>
+        <div id="sheetBodyContent" class="sheet-kv-box"></div>
+        <div class="btn-row">
+          <button id="sheetBtnBlockIp" class="m3-btn danger" onclick="sheetActionBlockIp()">
+            🚫 이 IP 영구 차단 (BlackIP)
+          </button>
+          <button id="sheetBtnAllowIp" class="m3-btn emerald" onclick="sheetActionAllowIp()">
+            ✅ 신뢰 허용 (WhiteIP)
+          </button>
+        </div>
+        <button class="m3-btn tonal" style="width:100%;" onclick="closeBottomSheet()">
+          닫기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="mobile_app.js"></script>
+</body>
+</html>

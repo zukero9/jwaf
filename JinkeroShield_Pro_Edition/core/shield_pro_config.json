@@ -1,0 +1,35 @@
+{
+    "is_active": true,
+    "blocked_countries": [
+        "CN",
+        "KP",
+        "RU"
+    ],
+    "black_ips": [],
+    "white_ips": [
+        "127.0.0.1",
+        "::1"
+    ],
+    "blocked_ports": [
+        21,
+        23,
+        135,
+        139,
+        445,
+        3389
+    ],
+    "waf_enabled": true,
+    "waf_port": 8080,
+    "target_port": 3000,
+    "file_guard_enabled": true,
+    "auto_sync_windows_firewall": true,
+    "ai_enabled": true,
+    "ai_sensitivity": "BALANCED",
+    "outbound_c2_block_enabled": true,
+    "auto_update_enabled": true,
+    "canary_ransomware_trap": true,
+    "geo_blocked_history": [],
+    "threat_blocked_history": [],
+    "ai_anomaly_history": [],
+    "_hmac_seal": "213633770a7d15ba88a295e4d7ed9144684422c39e07d0602e0a7f9f60b861e1"
+}

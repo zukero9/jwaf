@@ -1,0 +1,25 @@
+{
+  "version": "JWAF-PRO-2.0.0",
+  "sealed_at": "2026-11-07 23:23:28",
+  "hashes": {
+    "core\\ai_full_engine.py": "268594dbda80182fdd877cb5c699b71b77a7fd411240d1332d734f9223c0f85e",
+    "core\\auto_updater.py": "f6e82b40f141df5c663fd4a80b5f6369283b4e100fbfb02ecaf06618e61dd845",
+    "core\\config.py": "495fcf705675c8b75ee5b65eb3a61c99c1321344b935c834742e8a8d7b37423a",
+    "core\\edr_process_guard.py": "6e6774abb3357c68f465684ed98c33d65846ea9016fae7cfd40f5cb8c66623fa",
+    "core\\file_guard.py": "d6b072a8051688f63908d999e2d994d6c4a5dd38de70237a9bf45c55e75f787e",
+    "core\\firewall_manager.py": "701ef3886647500178e3fa18e7b90f5cd00df2cd4af4416c587d994e6a02ef22",
+    "core\\geoip.py": "aa0cc91a41f4f05b0cf93038dd9b1e8b07423f707fb482b31b65ed6facdfe120",
+    "core\\net_monitor.py": "7905fa29485ec123a6a95d00b089f71473ce20331aee86590fdebe8f256f4a95",
+    "core\\rules.py": "bdb94bee0dc5085761cae9ec6ef5c4e2dab0ae4aa7bd5294982be7d7913c6c4d",
+    "core\\self_protection.py": "efa720474b247bfa3225b7eda2089b72e91c08768f52a31040c5e2b506b3b783",
+    "core\\startup_manager.py": "013ede91364dc1f91b1df4fab1cc751904f4689f8829c5164bd759177cad7d15",
+    "core\\waf_proxy.py": "1f7a0d0509ecabf7682d9e822b37a0d3ca09452c4841b67701ac7d9aed329570",
+    "ui\\components.py": "a310edc44014001aa72479843ced8f191a3609eaa6eaf852c4e70c565748cd73",
+    "ui\\icon_resource.py": "981d6ad48e3158880020ed5bcd4c34009d740b0cc377510c067b941a42a7de7f",
+    "ui\\main_window.py": "31e5ba8ead36598b6bc65401ad0f1a451c40b39f3e0f609815184d004c0bbc3d",
+    "ui\\material_theme.py": "2026a271f6268da0b5c6b94b1f3671bfdb3b1b7c38a550eb8d70188591100cb9",
+    "main_pro.py": "eb009fef1dff212c3ae9858ca759e18c92c133ec5322f2da81bfee3ce4ee219a",
+    "setup_wizard.py": "88171a78003e596619153efdcec7ccb3ab11d145461d46bf950d9c07da87cad0"
+  },
+  "_hmac_seal": "4141bd507d657e4f95b291c8df449b2eefda32a2980899cc4b24191f628e7629"
+}

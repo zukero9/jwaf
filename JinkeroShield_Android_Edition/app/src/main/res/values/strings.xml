@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JWAF 모바일 AI 방화벽</string>
+    <string name="vpn_service_label">JWAF 로컬 VPN 양방향 방화벽</string>
+</resources>
+

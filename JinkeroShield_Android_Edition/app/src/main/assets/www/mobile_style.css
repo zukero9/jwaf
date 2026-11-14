@@ -1,0 +1,883 @@
+/* ==========================================================================
+   JWAF (Jinkero Shield Pro AI V2.0) — Android Mobile Edition
+   Google Material Design 3 Expressive (Android 16 / Pixel Security Hub Style)
+   Portrait-First (세로 화면 최적화) • 48dp Touch Targets • Zero Text Clipping
+   ========================================================================== */
+
+:root {
+  --bg-root: #090D16;
+  --surface-1: #111827;
+  --surface-2: #182235;
+  --surface-3: #1E293B;
+  --surface-glass: rgba(17, 24, 39, 0.92);
+  --border-subtle: #26334D;
+  --border-active: #38BDF8;
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+
+  --google-blue: #38BDF8;
+  --google-blue-tonal: rgba(56, 189, 248, 0.16);
+  --google-emerald: #34D399;
+  --google-emerald-tonal: rgba(52, 211, 153, 0.16);
+  --google-red: #F87171;
+  --google-red-tonal: rgba(248, 113, 113, 0.18);
+  --google-amber: #FBBF24;
+  --google-amber-tonal: rgba(251, 191, 36, 0.16);
+  --google-purple: #C084FC;
+
+  --radius-xl: 22px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-pill: 9999px;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-root);
+  color: var(--text-primary);
+  font-family: 'Pretendard', 'Noto Sans KR', 'Roboto', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.46;
+  letter-spacing: -0.015em;
+  /* 한글 단어 중간 끊김 및 글자 밀림 원천 방지 */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 앱 전체 세로 레이아웃 쉘 */
+.mobile-app-shell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #0D1322 0%, #090D16 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 상단 고정 앱바 (Google M3 Center/Small Top App Bar) */
+.top-app-bar {
+  flex-shrink: 0;
+  padding: calc(10px + var(--safe-top)) 16px 10px 16px;
+  background: var(--surface-glass);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-subtle);
+  z-index: 20;
+}
+
+.app-bar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.brand-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  flex-shrink: 0;
+  background: radial-gradient(circle at 30% 30%, #1E3A8A, #090D16);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+  overflow: hidden;
+}
+
+.brand-logo img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.brand-titles {
+  min-width: 0;
+  flex: 1;
+}
+
+.brand-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.brand-sub {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 상단 상태 칩 배지 바 (글자 밀림 없는 유동 랩핑) */
+.status-pill-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.m3-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.m3-badge.blue {
+  background: var(--google-blue-tonal);
+  color: var(--google-blue);
+  border: 1px solid rgba(56, 189, 248, 0.32);
+}
+
+.m3-badge.green {
+  background: var(--google-emerald-tonal);
+  color: var(--google-emerald);
+  border: 1px solid rgba(52, 211, 153, 0.32);
+}
+
+.m3-badge.amber {
+  background: var(--google-amber-tonal);
+  color: var(--google-amber);
+  border: 1px solid rgba(251, 191, 36, 0.32);
+}
+
+.m3-badge.red {
+  background: var(--google-red-tonal);
+  color: var(--google-red);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+}
+
+/* 중앙 스크롤 영역 (터치 관성 스크롤 & 하단 내비바 여백 확보) */
+.main-scroll-viewport {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  padding: 14px 14px 28px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.main-scroll-viewport::-webkit-scrollbar {
+  width: 4px;
+}
+.main-scroll-viewport::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 4px;
+}
+
+/* 탭 페이지 전환 */
+.tab-section {
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeSlideUp 0.18s ease-out;
+}
+
+.tab-section.active {
+  display: flex;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Google Material 3 Expressive 카드 */
+.m3-card {
+  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+  min-width: 0;
+}
+
+.m3-card.hero-shield-card {
+  background: radial-gradient(circle at 85% 15%, rgba(2, 132, 199, 0.28), rgba(17, 24, 39, 0.96) 70%);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.m3-card.hero-shield-card.paused {
+  background: radial-gradient(circle at 85% 15%, rgba(239, 68, 68, 0.22), rgba(17, 24, 39, 0.96) 70%);
+  border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  min-width: 0;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.card-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* 히어로 VPN 방화벽 마스터 컨트롤 */
+.hero-top-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.hero-status-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.hero-status-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--google-emerald);
+  letter-spacing: -0.02em;
+}
+
+.hero-status-desc {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Google M3 대형 터치 스위치 (최소 58x32dp 터치 영역) */
+.m3-switch {
+  position: relative;
+  width: 60px;
+  height: 34px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.m3-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.m3-slider {
+  position: absolute;
+  inset: 0;
+  background-color: #334155;
+  border: 2px solid #64748B;
+  border-radius: var(--radius-pill);
+  transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.m3-slider::before {
+  content: "";
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #CBD5E1;
+  border-radius: 50%;
+  transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.m3-switch input:checked + .m3-slider {
+  background-color: #0284C7;
+  border-color: var(--google-blue);
+}
+
+.m3-switch input:checked + .m3-slider::before {
+  transform: translateX(26px);
+  background-color: #FFFFFF;
+}
+
+/* 2x2 KPI 그리드 (모바일 세로 화면 최적화, 숫자 변동 시 밀림 방지) */
+.kpi-grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.kpi-tile {
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 13px 14px;
+  min-width: 0;
+  cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 88px;
+}
+
+.kpi-tile:active {
+  transform: scale(0.97);
+}
+
+.kpi-tile.blue { border-left: 4px solid var(--google-blue); }
+.kpi-tile.red { border-left: 4px solid var(--google-red); }
+.kpi-tile.amber { border-left: 4px solid var(--google-amber); }
+.kpi-tile.green { border-left: 4px solid var(--google-emerald); }
+
+.kpi-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpi-value {
+  font-size: 21px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  margin: 4px 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpi-tile.blue .kpi-value { color: var(--google-blue); }
+.kpi-tile.red .kpi-value { color: var(--google-red); }
+.kpi-tile.amber .kpi-value { color: var(--google-amber); }
+.kpi-tile.green .kpi-value { color: var(--google-emerald); }
+
+.kpi-foot {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 모바일 실시간 RX/TX 대역폭 전광판 */
+.traffic-hud-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.traffic-pill-box {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 9px 11px;
+  min-width: 0;
+}
+
+.traffic-pill-box.rx { border-color: rgba(0, 240, 255, 0.4); }
+.traffic-pill-box.tx { border-color: rgba(0, 255, 157, 0.4); }
+
+.traffic-pill-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.traffic-pill-val {
+  font-size: 16px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.traffic-pill-box.rx .traffic-pill-val { color: #00F0FF; }
+.traffic-pill-box.tx .traffic-pill-val { color: #00FF9D; }
+
+.canvas-wrap {
+  width: 100%;
+  height: 115px;
+  background: #080C14;
+  border-radius: var(--radius-md);
+  border: 1px solid #1E293B;
+  overflow: hidden;
+  position: relative;
+}
+
+#mobileTrafficCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 터치 친화형 버튼 시스템 (최소 높이 48px 보장, 글자 깨짐/밀림 방지) */
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.m3-btn {
+  min-height: 48px;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 800;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
+  transition: transform 0.1s ease, filter 0.15s ease;
+}
+
+.m3-btn:active {
+  transform: scale(0.97);
+  filter: brightness(1.08);
+}
+
+.m3-btn.primary {
+  background: linear-gradient(180deg, #0284C7 0%, #0369A1 100%);
+  color: #FFFFFF;
+  border-color: #38BDF8;
+}
+
+.m3-btn.emerald {
+  background: linear-gradient(180deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  border-color: #34D399;
+}
+
+.m3-btn.danger {
+  background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
+  color: #FFFFFF;
+  border-color: #F87171;
+}
+
+.m3-btn.amber {
+  background: linear-gradient(180deg, #F59E0B 0%, #D97706 100%);
+  color: #0F172A;
+  border-color: #FBBF24;
+}
+
+.m3-btn.tonal {
+  background: var(--surface-3);
+  color: var(--text-primary);
+  border-color: #475569;
+}
+
+/* 모바일 스위치 리스트 아이템 (4대 모바일 특화 방어 설정용) */
+.setting-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  min-height: 64px;
+  min-width: 0;
+}
+
+.setting-text-box {
+  min-width: 0;
+  flex: 1;
+}
+
+.setting-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.setting-desc {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* 가로 스크롤 필터 칩 바 */
+.chip-scroll-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.chip-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
+  min-height: 40px;
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.filter-chip.active {
+  background: var(--google-blue-tonal);
+  border-color: var(--google-blue);
+  color: var(--google-blue);
+}
+
+/* 모바일 세로형 카드 리스트 (데스크톱 다중 컬럼 표의 글자 밀림 완벽 해결) */
+.mobile-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.threat-item-card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--google-blue);
+  border-radius: var(--radius-lg);
+  padding: 13px 14px;
+  min-width: 0;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.15s ease;
+}
+
+.threat-item-card:active {
+  transform: scale(0.985);
+  background: rgba(30, 41, 59, 0.95);
+}
+
+.threat-item-card.blocked {
+  border-left-color: var(--google-red);
+}
+
+.threat-item-card.safe {
+  border-left-color: var(--google-emerald);
+}
+
+.threat-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.threat-ip-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1;
+}
+
+.threat-card-mid {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  margin: 6px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.threat-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  min-width: 0;
+}
+
+/* 모바일 입력 필드 */
+.input-group-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.m3-input {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  background: #090D16;
+  border: 1px solid #334155;
+  border-radius: var(--radius-md);
+  padding: 10px 13px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13.5px;
+}
+
+.m3-input:focus {
+  outline: none;
+  border-color: var(--google-blue);
+}
+
+.m3-select {
+  width: 100%;
+  min-height: 48px;
+  background: #090D16;
+  border: 1px solid #334155;
+  border-radius: var(--radius-md);
+  padding: 10px 13px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+/* 국가 차단 2열 터치 그리드 */
+.country-chip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.country-toggle-btn {
+  min-height: 48px;
+  padding: 8px 11px;
+  border-radius: var(--radius-md);
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.country-toggle-btn span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.country-toggle-btn.blocked {
+  background: var(--google-red-tonal);
+  border-color: var(--google-red);
+  color: #FCA5A5;
+}
+
+/* 하단 고정 Google Material 3 Navigation Bar (5개 탭, 엄지손가락 터치 최적화) */
+.bottom-nav-bar {
+  flex-shrink: 0;
+  height: calc(68px + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: center;
+  z-index: 30;
+}
+
+.nav-tab-item {
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  min-width: 0;
+  padding: 6px 2px;
+}
+
+.nav-pill-icon {
+  width: 52px;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  transition: background-color 0.18s ease, transform 0.12s ease;
+}
+
+.nav-tab-label {
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.nav-tab-item.active {
+  color: var(--text-primary);
+}
+
+.nav-tab-item.active .nav-pill-icon {
+  background: var(--google-blue-tonal);
+  color: var(--google-blue);
+  transform: translateY(-1px);
+}
+
+/* Google Material 3 모달 바텀 시트 (상세 XAI 분석 및 빠른 차단 액션) */
+.bottom-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+
+.bottom-sheet-backdrop.open {
+  display: flex;
+}
+
+.bottom-sheet-panel {
+  width: 100%;
+  max-width: 540px;
+  max-height: 84vh;
+  background: var(--surface-1);
+  border-top: 1px solid var(--border-active);
+  border-radius: 26px 26px 0 0;
+  padding: 12px 18px calc(20px + var(--safe-bottom)) 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  animation: sheetSlideUp 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes sheetSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.sheet-drag-handle {
+  width: 42px;
+  height: 5px;
+  background: #475569;
+  border-radius: 4px;
+  margin: 0 auto 4px auto;
+}
+
+.sheet-kv-box {
+  background: #090D16;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 13px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* 상단 플로팅 토스트 알림 */
+.mobile-toast {
+  position: fixed;
+  top: calc(16px + var(--safe-top));
+  left: 50%;
+  transform: translateX(-50%) translateY(-120%);
+  background: #0F172A;
+  color: #F8FAFC;
+  border: 1px solid var(--google-blue);
+  border-radius: var(--radius-pill);
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55);
+  z-index: 200;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  max-width: 92%;
+  text-align: center;
+}
+
+.mobile-toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
