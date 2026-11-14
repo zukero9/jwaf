@@ -3,10 +3,10 @@
   <assemblyIdentity
     version="1.0.0.0"
     processorArchitecture="*"
-    name="Antigravity.Shield.WAF"
+    name="Jinkero.Shield.WAF"
     type="win32"
   />
-  <description>Antigravity Personal Firewall and Local WAF</description>
+  <description>Jinkero Personal Firewall and Local WAF</description>
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
     <security>
       <requestedPrivileges>
