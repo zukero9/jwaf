@@ -1,8 +1,11 @@
 package com.jinkero.shieldpro;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.VpnService;
+import android.os.Build;
 import android.os.ParcelFileDescriptor;
+import android.util.Log;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
@@ -75,6 +78,32 @@ public class JwafVpnFirewallService extends VpnService implements Runnable {
                             builder.addRoute(ip, 32);
                         } catch (Exception ignored) {
                         }
+                    }
+                }
+            }
+
+            // [삼성 페이 및 금융 간편결제 시스템 분할 터널링 (Split-Tunneling / Bypass)]
+            // 삼성 페이(Samsung Pay / Samsung Wallet)는 위조 변조 방지 및 금융 보안 토큰 검증 정책상
+            // VPN 인터페이스가 감지되면 결제 승인을 차단합니다.
+            // addDisallowedApplication을 통해 삼성 페이 관련 패키지를 VPN 터널에서 완전히 배제하여
+            // 기기 기본 모바일 데이터/Wi-Fi 망으로 직접 통신하도록 허용함으로써 결제 장애를 완벽히 해결합니다.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                String[] samsungPayPackages = new String[] {
+                    "com.samsung.android.spay",          // Samsung Pay / Samsung Wallet UI & Client
+                    "com.samsung.android.spayfw",        // Samsung Pay Framework (HCE, MST, 토큰 관리 핵심 모듈)
+                    "com.samsung.android.spaymini",      // Samsung Pay Mini
+                    "com.samsung.android.rajaampat",     // Samsung Pay Global/Regional Service
+                    "com.samsung.android.samsungpass",   // Samsung Pass (생체 인증 결제 연동)
+                    "com.samsung.android.authframework"  // Samsung Biometric Authentication Framework
+                };
+
+                for (String pkg : samsungPayPackages) {
+                    try {
+                        builder.addDisallowedApplication(pkg);
+                    } catch (PackageManager.NameNotFoundException ignored) {
+                        // 미설치 기기(타 제조사 스마트폰 등)에서는 안전하게 무시
+                    } catch (Exception e) {
+                        Log.w("JwafVpnFirewall", "Failed to bypass package: " + pkg, e);
                     }
                 }
             }

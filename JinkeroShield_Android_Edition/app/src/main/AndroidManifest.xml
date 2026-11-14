@@ -12,6 +12,16 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <!-- 삼성 페이 및 시스템 간편결제 서비스 분할 터널링(Bypass) 가시성 쿼리 -->
+    <queries>
+        <package android:name="com.samsung.android.spay" />
+        <package android:name="com.samsung.android.spayfw" />
+        <package android:name="com.samsung.android.spaymini" />
+        <package android:name="com.samsung.android.rajaampat" />
+        <package android:name="com.samsung.android.samsungpass" />
+        <package android:name="com.samsung.android.authframework" />
+    </queries>
+
     <application
         android:label="JWAF 모바일 AI 방화벽"
         android:icon="@drawable/ic_launcher"
