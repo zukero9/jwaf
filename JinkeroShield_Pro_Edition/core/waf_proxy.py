@@ -66,6 +66,13 @@ class LocalWAFProxy:
                     self._block_response("Blocked by JWAF Jinkero Shield Pro: Blacklisted IP")
                     return
 
+                # [글로벌 실시간 집단지성(Swarm Intelligence) C2 IP 차단 연동]
+                from core.swarm_threat_intel import SWARM_INTEL
+                if SWARM_INTEL.is_swarm_c2_threat(client_ip):
+                    waf_instance._log_event(client_ip, country, method, self.path, "BLOCKED", "SWARM_C2_FEED", "글로벌 집단지성 클라우드 C2 위협 IP 차단", "CRITICAL", 99)
+                    self._block_response("Blocked by JWAF Global Swarm Intelligence: Malicious C2 Node")
+                    return
+
                 if country in waf_instance.config.blocked_countries:
                     now_str = time.strftime("%Y-%m-%d %H:%M:%S")
                     waf_instance._log_event(client_ip, country, method, self.path, "BLOCKED", "GEO_BLOCK", f"국가 차단 정책 적용: {country}", "HIGH", 95)
@@ -133,6 +140,8 @@ class LocalWAFProxy:
                             client_ip, country, method, self.path, "BLOCKED_AI", ai_eval.category,
                             ai_eval.xai_reason, "CRITICAL", ai_eval.score
                         )
+                        # 글로벌 집단지성 허브에 로컬 차단 이벤트 브로드캐스트
+                        SWARM_INTEL.broadcast_local_threat(client_ip, ai_eval.synthesized_rule_id or ai_eval.category, ai_eval.xai_reason)
                         self._block_response(f"Full AI Defense Triggered [{ai_eval.category}]\n{ai_eval.xai_reason}")
                         return
                     elif ai_eval.is_suspicious:

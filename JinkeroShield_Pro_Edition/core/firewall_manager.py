@@ -94,6 +94,13 @@ def sync_inbound_block_rule(ip_set: set, sync_outbound: bool = True) -> bool:
     ]
     success_in, _, _ = run_cmd(cmd_in)
 
+    # [Windows Filtering Platform (WFP) 커널 레벨 패킷 차단기 실시간 동기화]
+    try:
+        from core.wfp_kernel_guard import WFP_GUARD
+        WFP_GUARD.sync_kernel_block_rules(sanitized_ips, [5555, 3389, 445, 23, 21, 135])
+    except Exception:
+        pass
+
     delete_shield_rule(OUTBOUND_BLOCK_RULE)
     if sync_outbound:
         cmd_out = [

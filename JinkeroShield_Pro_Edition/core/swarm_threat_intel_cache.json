@@ -1,0 +1,22 @@
+{
+  "last_sync_time": "2026-11-14 15:02:00",
+  "global_c2_ips": [
+    "203.0.113.123",
+    "50.16.16.211",
+    "203.0.113.250"
+  ],
+  "swarm_shared_signatures": [
+    {
+      "ip": "203.0.113.123",
+      "rule_id": "AUTO-EVO-01",
+      "reason": "LLM Prompt Injection",
+      "timestamp": "2026-11-14 15:00:57"
+    },
+    {
+      "ip": "203.0.113.250",
+      "rule_id": "AUTO-EVO-02",
+      "reason": "ZeroDay ProcessBuilder Injection",
+      "timestamp": "2026-11-14 15:02:00"
+    }
+  ]
+}
