@@ -8,8 +8,14 @@ a = Analysis(
     ['main_pro.py'],
     pathex=['E:\\soamai\\localwaf\\JinkeroShield_Pro_Edition'],
     binaries=[],
-    datas=[('jwaf_icon.ico', '.'), ('jwaf_icon.png', '.')],
-    hiddenimports=['core.ai_full_engine', 'core.auto_updater', 'core.edr_process_guard', 'core.self_protection', 'ui.icon_resource', 'setup_wizard'],
+    datas=[('jwaf_icon.ico', '.'), ('jwaf_icon.png', '.'), ('core', 'core'), ('ui', 'ui')],
+    hiddenimports=[
+        'core.ai_full_engine', 'core.auto_updater', 'core.edr_process_guard',
+        'core.self_protection', 'core.tls_inspector', 'core.wfp_kernel_guard',
+        'core.swarm_threat_intel', 'ui.icon_resource', 'setup_wizard',
+        'cryptography', 'cryptography.x509', 'cryptography.hazmat.primitives',
+        'cryptography.hazmat.primitives.asymmetric.rsa'
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
